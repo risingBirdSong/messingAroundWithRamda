@@ -380,3 +380,46 @@ const urinals = (str) => {
 }
 
 console.log(urinals("1000001"))
+
+
+
+const isOddCheck = R.complement(R.complement((R.modulo(R.__, 2))));
+const isEvenCheck = R.complement(isOddCheck);
+
+console.log(isOddCheck(4))
+console.log(isEvenCheck(4))
+
+console.log(R.filter(isEvenCheck)([1, 2, 3, 4, 5, 6, 7]))
+
+const smallAndLarge = [2, 5, 19, 44, 6, 14];
+
+console.log("apply", R.apply(Math.min)(smallAndLarge))
+
+const people = [
+  { name: 'Emma', age: 70 },
+  { name: 'Peter', age: 78 },
+  { name: 'Mikhail', age: 62 },
+];
+
+const byAgeAsc = R.ascend(R.prop('age'));
+const sortedAge = R.sort(byAgeAsc, people);
+console.log("sortedAge", sortedAge)
+
+console.log("assoc path", R.assocPath(['a', 'b'], 42, {}));
+
+const greaterThan10 = R.gte(R.__, 10);
+const lesserThan20 = R.lte(R.__, 20);
+
+const between10and20 = R.both(greaterThan10, lesserThan20);
+
+console.log("betwee10-20", between10and20(9))
+
+console.log(R.chain(R.append, R.head)([1, 2, 3, 4]))
+
+const myCondition = R.cond([
+  [R.equals(0), R.always("yep its zero")],
+  [R.equals(100), R.always("yes it's 100")],
+  [R.T, temp => `nothing is special about ${temp}`]
+])
+
+console.log('my condition', myCondition(51))
