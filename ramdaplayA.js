@@ -333,6 +333,50 @@ const countBy = (arr) => {
 
 
 // console.log("countyBy", countBy([1, 1, 1, 1, 2, 2, 3]));
-console.log("countyBy", countBy([27, 65, 44, 39, 44, 21, 21, 44, 65, 39, 21, 65]));
+// console.log("countyBy", countBy([27, 65, 44, 39, 44, 21, 21, 44, 65, 39, 21, 65]));
 
 // console.log(R.countBy(R.identity)([1,1,1,1,2,2,2,3,3,4]))
+
+const workingWithString = (a) => {
+  console.log(a);
+  return a;
+}
+
+const fillUrinals = (arr) => {
+  let canAdd;
+  console.log('arr', arr);
+  const reduced = arr.reduce((acc, val, idx, arr) => {
+    if (acc.length == 0) {
+      //mirror the beginning of the passed arr.
+      acc.push(val);
+    }
+    if (acc[acc.length - 1] == '1') {
+      acc.push('0');
+    }
+
+    else if (acc[acc.length - 1] == '0') {
+      if (arr[idx + 1] == "0") {
+
+        acc.push('1')
+      }
+      else if (arr[idx + 1] == "1") {
+        acc.push('0');
+      }
+    }
+    if (idx == arr.length - 1) {
+      acc[idx] = val;
+    }
+    return acc;
+  }, [])
+  console.log("reduced", reduced);
+  return reduced;
+}
+
+const urinals = (str) => {
+  R.pipe(
+    R.map(workingWithString),
+    fillUrinals,
+  )(str)
+}
+
+console.log(urinals("1000001"))
